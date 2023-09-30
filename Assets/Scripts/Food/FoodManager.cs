@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Lean.Pool;
 using UnityEngine;
-using UnityEngine.Events;
+using System.Linq;
 
 public class FoodManager : MonoBehaviour
 {
@@ -43,6 +43,11 @@ public class FoodManager : MonoBehaviour
         food = activeFoods.GetRandom();
 
         return true;
+    }
+
+    public Food GetClosestFood(Vector3 fishPosition)
+    {
+        return activeFoods.OrderBy(x => Vector3.Distance(x.transform.position, fishPosition)).FirstOrDefault();
     }
 
     public Vector3? GetFoodPosition()

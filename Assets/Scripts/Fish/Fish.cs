@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class Fish : MonoBehaviour
@@ -8,6 +9,9 @@ public class Fish : MonoBehaviour
     public FishStateController FishStateController {get; private set;}
 
     public Food CurrentFood {get; set;}
+
+    public event UnityAction OnCurrentFoodSet; 
+    public event UnityAction OnCurrentFoodDespawned; 
 
     void Awake()
     {
@@ -24,9 +28,13 @@ public class Fish : MonoBehaviour
     private void HandleFoodDespawned(Food food)
     {
         // when food is despawned event will called, then all the fishes will check if the their current food is despawned, checking by getinstance id is faster because of int
-        if(CurrentFood.gameObject.GetInstanceID() == food.gameObject.GetInstanceID())
+        if(CurrentFood != null)
         {
-            CurrentFood = null;
+            if(CurrentFood.gameObject.GetInstanceID() == food.gameObject.GetInstanceID())
+            {
+                CurrentFood = null;
+                OnCurrentFoodDespawned?.Invoke();
+            }
         }
 
         if(FoodManager.Instance.TryGetAvailableFood(out Food availableFood))
@@ -44,20 +52,21 @@ public class Fish : MonoBehaviour
         Food.OnFoodDespawned -= HandleFoodDespawned;
     }
 
-    private void HandleFoodSpawned(Food food)
+    private void HandleFoodSpawned()
     {
-        if(CurrentFood == null)
-        {
-            CurrentFood = food;
-        }
-        else //if fish has current food and player spawns another food, fish might change the currentFood so some fishes go to other food.
-        {
-            int randomChance = Random.Range(0, 100);
+        Food _food = FoodManager.Instance.GetClosestFood(transform.position);
 
-            if(randomChance >= 80)
-            {
-                CurrentFood = food;
-            }
+        if(_food == null)
+        {
+            FishStateController.ChangeState(FishState.Patrol);
+
+            Debug.LogError("state changed to patrol. there is no food");
+            return;
         }
+
+        CurrentFood = _food;
+        FishStateController.ChangeState(FishState.MoveToTarget);
+        FishMovement.TargetPosition = CurrentFood.transform.position;
+        OnCurrentFoodSet?.Invoke();
     }
 }

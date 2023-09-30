@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Lean.Pool;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class TestAquarium : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class TestAquarium : MonoBehaviour
     [SerializeField] private List<Fish> fishesInAquarium;
 
     public static TestAquarium Instance;
+    [SerializeField] private NavMeshSurface navMeshSurface;
     void Awake()
     {
         if(Instance)
@@ -25,16 +27,38 @@ public class TestAquarium : MonoBehaviour
         Instance = this;
     }
 
-    public Vector3 GetRandomPointInAquarium()
+    public Vector3 GetRandomPointOnNavMesh()
     {
-        return new Vector3(Random.Range(-WIDTH/2 + padding, WIDTH/2 - padding), Random.Range(0, HEIGHT), 0f);
+        NavMeshHit hit;
+        Vector3 randomPoint = Vector3.zero;
+
+        int maxAttempts = 30;
+        int attempts = 0;
+
+        while (attempts < maxAttempts)
+        {
+            float randomX = Random.Range(navMeshSurface.transform.position.x - navMeshSurface.size.x / 2, navMeshSurface.transform.position.x + navMeshSurface.size.x / 2);
+            float randomZ = Random.Range(navMeshSurface.transform.position.z - navMeshSurface.size.z / 2, navMeshSurface.transform.position.z + navMeshSurface.size.z / 2);
+
+            randomPoint = new Vector3(randomX, navMeshSurface.transform.position.y, randomZ);
+
+            if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
+            {
+                return hit.position;
+            }
+
+            attempts++;
+        }
+
+        Debug.LogWarning("Could not find a valid random point on NavMesh.");
+        return randomPoint;
     }
 
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            var fish = LeanPool.Spawn(fishPrefab, GetRandomPointInAquarium(), Quaternion.identity);
+            var fish = LeanPool.Spawn(fishPrefab, GetRandomPointOnNavMesh(), Quaternion.identity);
             fishesInAquarium.Add(fish);
         }
     }

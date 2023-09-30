@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class FishStateController : MonoBehaviour
 {
@@ -11,12 +12,13 @@ public class FishStateController : MonoBehaviour
     private StateBase currentState;
     [SerializeField] private float minWarnDistance = 3f;
 
+    public event UnityAction<Vector3> OnFishWarned;
+
     public FishStateController Init(Fish fish) 
     {
         this.fish = fish;
         CreateDictionary();
 
-        PlayerActionHandler.OnFeed += HandleFeed;
         PlayerActionHandler.OnWarnFishes += HandleWarn;
         return this;
     }
@@ -27,12 +29,6 @@ public class FishStateController : MonoBehaviour
         ChangeState(FishState.Patrol);
     }
 
-    private void HandleFeed(Vector3 foodPosition)
-    {
-        ChangeState(FishState.MoveToTarget);
-        fish.FishMovement.TargetPosition = fish.CurrentFood.transform.position;
-    }
-
     private void HandleWarn(Vector3 foodPosition)
     {
         if(Vector3.Distance(transform.position, foodPosition) >= minWarnDistance)
@@ -40,11 +36,11 @@ public class FishStateController : MonoBehaviour
         
         foodPosition.z = transform.position.z;
         Vector3 oppositeDirection = (transform.position - foodPosition).normalized;
-        oppositeDirection *= 10f;
+        oppositeDirection *= 10f;//temp, move to so
 
         oppositeDirection = TestAquarium.Instance.ClampPosition(oppositeDirection);
         ChangeState(FishState.MoveToTarget);
-        fish.FishMovement.TargetPosition = oppositeDirection;
+        OnFishWarned?.Invoke(oppositeDirection);
     }
 
     void Update()
@@ -70,7 +66,6 @@ public class FishStateController : MonoBehaviour
 
     void OnDestroy()
     {
-        PlayerActionHandler.OnFeed -= HandleFeed;
         PlayerActionHandler.OnWarnFishes -= HandleWarn;
     }
 

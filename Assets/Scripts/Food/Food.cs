@@ -1,3 +1,4 @@
+using System.Collections;
 using Lean.Pool;
 using UnityEngine;
 using UnityEngine.Events;
@@ -5,7 +6,7 @@ using UnityEngine.Events;
 public class Food : MonoBehaviour, IPoolable
 {
     public static event UnityAction<Food> OnFoodDespawned;
-    public static event UnityAction<Food> OnFoodSpawned;
+    public static event UnityAction OnFoodSpawned;
 
     private Rigidbody rb;
 
@@ -24,9 +25,16 @@ public class Food : MonoBehaviour, IPoolable
     public void OnSpawn()
     {
         rb.velocity = Vector3.zero;
-        OnFoodSpawned?.Invoke(this);
+
         if(gameObject.activeInHierarchy) //temp
             LeanPool.Despawn(this, 3f);
+
+        StartCoroutine(Delay());
+        IEnumerator Delay()
+        {
+            yield return null;
+            OnFoodSpawned?.Invoke();
+        }
     }
 
     public void OnDespawn()

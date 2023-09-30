@@ -6,7 +6,7 @@ public class PatrolState : StateBase
 
     private void SetNewTargetPosition()
     {
-        fish.FishMovement.TargetPosition = TestAquarium.Instance.GetRandomPointInAquarium();
+        fish.FishMovement.TargetPosition = TestAquarium.Instance.GetRandomPointOnNavMesh();
     }
 
     public override void EnterState()

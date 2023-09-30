@@ -16,7 +16,7 @@ public class MoveToTargetState : StateBase
         {
             fish.FishMovement.TargetPosition = fish.CurrentFood.transform.position;
         }
-        
+
         fish.FishMovement.MoveToTarget();
 
         if(fish.FishMovement.HasReachedTarget())
