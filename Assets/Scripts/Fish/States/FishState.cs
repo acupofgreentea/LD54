@@ -1,5 +1,6 @@
 public enum FishState
 {
     Patrol,
-    MoveToTarget
+    MoveToTarget,
+    Empty
 }

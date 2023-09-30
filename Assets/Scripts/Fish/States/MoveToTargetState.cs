@@ -12,9 +12,9 @@ public class MoveToTargetState : StateBase
     
     public override void UpdateState()
     {
-        if(fish.CurrentFood != null)
+        if(fish.FishGrowthController.CurrentFood != null)
         {
-            fish.FishMovement.TargetPosition = fish.CurrentFood.transform.position;
+            fish.FishMovement.TargetPosition = fish.FishGrowthController.CurrentFood.transform.position;
         }
 
         fish.FishMovement.MoveToTarget();

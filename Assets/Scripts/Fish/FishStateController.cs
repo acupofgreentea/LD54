@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,7 +8,6 @@ public class FishStateController : MonoBehaviour
 
     private Dictionary<FishState, StateBase> stateDictionary;
     private StateBase currentState;
-    [SerializeField] private float minWarnDistance = 3f;
 
     public event UnityAction<Vector3> OnFishWarned;
 
@@ -18,29 +15,34 @@ public class FishStateController : MonoBehaviour
     {
         this.fish = fish;
         CreateDictionary();
+        fish.OnSpawned += HandleOnSpawned;
+        fish.OnDespawned += HandleOnDespawned;
 
-        PlayerActionHandler.OnWarnFishes += HandleWarn;
         return this;
     }
 
-    private IEnumerator Start()
+    private void HandleOnDespawned()
     {
-        yield return null;
+        fish.FishHealth.OnDie -= HandleOnDie;
+    }
+
+    private void HandleOnSpawned()
+    {
+        PlayerActionHandler.OnWarnFishes += HandleWarn;
+        fish.FishHealth.OnDie += HandleOnDie;
         ChangeState(FishState.Patrol);
     }
 
-    private void HandleWarn(Vector3 foodPosition)
+    private void HandleOnDie()
     {
-        if(Vector3.Distance(transform.position, foodPosition) >= minWarnDistance)
-            return;
-        
-        foodPosition.z = transform.position.z;
-        Vector3 oppositeDirection = (transform.position - foodPosition).normalized;
-        oppositeDirection *= 10f;//temp, move to so
+        PlayerActionHandler.OnWarnFishes -= HandleWarn;
+        ChangeState(FishState.Empty);
+    }
 
-        oppositeDirection = TestAquarium.Instance.ClampPosition(oppositeDirection);
+    private void HandleWarn(Vector3 warnPosition)
+    {
         ChangeState(FishState.MoveToTarget);
-        OnFishWarned?.Invoke(oppositeDirection);
+        OnFishWarned?.Invoke(warnPosition);
     }
 
     void Update()
@@ -54,6 +56,7 @@ public class FishStateController : MonoBehaviour
         {
             {FishState.Patrol, new PatrolState(fish)},
             {FishState.MoveToTarget, new MoveToTargetState(fish)},
+            {FishState.Empty, new EmptyState(fish)},
         };
     }
 
@@ -66,11 +69,7 @@ public class FishStateController : MonoBehaviour
 
     void OnDestroy()
     {
-        PlayerActionHandler.OnWarnFishes -= HandleWarn;
-    }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, minWarnDistance);
+        fish.OnSpawned -= HandleOnSpawned;
+        fish.OnDespawned -= HandleOnDespawned;
     }
 }

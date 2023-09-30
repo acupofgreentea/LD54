@@ -14,6 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MoveSpeed>k__BackingField: 1.25
   <RotationSpeed>k__BackingField: 2
+  <MinMoveSpeed>k__BackingField: 0.5
+  <MinRotationSpeed>k__BackingField: 1
   <MoveSpeedAtWarn>k__BackingField: 10
   <RotationSpeedAtWarn>k__BackingField: 6
+  <MinMoveSpeedAtWarn>k__BackingField: 4
+  <MinRotationSpeedAtWarn>k__BackingField: 5
   <WarnSpeedFadeDuration>k__BackingField: 1.75
+  <WarnPushMultiplier>k__BackingField: 10
+  <MoveSpeedReduceAmountOnGrowth>k__BackingField: 0.15
+  <RotationSpeedReduceAmountOnGrowth>k__BackingField: 0.2
+  <MoveSpeedAtWarnReduceAmountOnGrowth>k__BackingField: 2
+  <RotationSpeedAtWarnReduceAmountOnGrowth>k__BackingField: 1

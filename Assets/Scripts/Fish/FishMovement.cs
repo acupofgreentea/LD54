@@ -8,14 +8,20 @@ public class FishMovement : MonoBehaviour
     [SerializeField] private FishMovementConfigSO fishMovementConfigSO;
 
     [SerializeField] private Transform model;
+    [SerializeField] private float minWarnDistance = 3f;
     private float moveSpeed;
     private float rotationSpeed;
+
+    private float moveSpeedAtWarn;
+    private float rotationSpeedAtWarn;
 
     public Vector3? TargetPosition {get; set;}
     private Fish fish;
 
     private float defaultMoveSpeed;
     private float defaultRotationSpeed;
+    private float defaultMoveSpeedAtWarn;
+    private float defaultRotationSpeedAtWarn;
 
     private Coroutine warnCoroutine;
 
@@ -25,18 +31,72 @@ public class FishMovement : MonoBehaviour
         this.fish = fish;
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
+
         moveSpeed = fishMovementConfigSO.MoveSpeed;
         rotationSpeed = fishMovementConfigSO.RotationSpeed;
+
+        moveSpeedAtWarn = fishMovementConfigSO.MoveSpeedAtWarn;
+        rotationSpeedAtWarn = fishMovementConfigSO.RotationSpeedAtWarn;
+
         defaultMoveSpeed = moveSpeed;
         defaultRotationSpeed = rotationSpeed;
 
+        defaultMoveSpeedAtWarn = moveSpeedAtWarn;
+        defaultRotationSpeedAtWarn = rotationSpeedAtWarn;
+        
+        fish.OnSpawned += HandleOnSpawned;
+        fish.OnDespawned += HandleOnDespawned;
+
         return this;
     }
-    void Start()
+
+    private void HandleOnDespawned()
+    {
+        fish.FishStateController.OnFishWarned -= HandleFishWarned;
+        fish.FishGrowthController.OnCurrentFoodSet -= HandleCurrentFoodSet;
+        fish.FishGrowthController.OnCurrentFoodDespawned -= HandleCurrentFoodDespawned;
+        fish.FishGrowthController.OnFoodEaten -= HandleOnFoodEaten;
+        fish.FishHealth.OnDie -= HandleOnDie;
+    }
+
+    private void HandleOnSpawned()
     {
         fish.FishStateController.OnFishWarned += HandleFishWarned;
-        fish.OnCurrentFoodSet += HandleCurrentFoodSet;
-        fish.OnCurrentFoodDespawned += HandleCurrentFoodDespawned;
+        fish.FishGrowthController.OnCurrentFoodSet += HandleCurrentFoodSet;
+        fish.FishGrowthController.OnCurrentFoodDespawned += HandleCurrentFoodDespawned;
+        fish.FishGrowthController.OnFoodEaten += HandleOnFoodEaten;
+        fish.FishHealth.OnDie += HandleOnDie;
+
+        defaultMoveSpeed = fishMovementConfigSO.MoveSpeed;
+        defaultRotationSpeed = fishMovementConfigSO.RotationSpeed;
+
+        moveSpeedAtWarn = defaultMoveSpeedAtWarn;
+        rotationSpeedAtWarn = defaultRotationSpeedAtWarn;
+
+        moveSpeed = defaultMoveSpeed;
+        rotationSpeed = defaultRotationSpeed;
+        
+        agent.enabled = true;
+    }
+
+    private void HandleOnFoodEaten()
+    {
+        float newDefaultMoveSpeed = defaultMoveSpeed - fishMovementConfigSO.MoveSpeedReduceAmountOnGrowth;
+        defaultMoveSpeed = newDefaultMoveSpeed >= fishMovementConfigSO.MinMoveSpeed ? newDefaultMoveSpeed : defaultMoveSpeed;
+
+        float newdefaultRotationSpeed = defaultRotationSpeed - fishMovementConfigSO.RotationSpeedReduceAmountOnGrowth;
+        defaultRotationSpeed = newdefaultRotationSpeed >= fishMovementConfigSO.MinRotationSpeed ? newdefaultRotationSpeed : defaultRotationSpeed;
+
+        float newMoveSpeedAtWarn = moveSpeedAtWarn - fishMovementConfigSO.MoveSpeedAtWarnReduceAmountOnGrowth;
+        moveSpeedAtWarn = newMoveSpeedAtWarn >= fishMovementConfigSO.MinMoveSpeedAtWarn ? newMoveSpeedAtWarn : moveSpeedAtWarn;
+
+        float newRotationSpeedAtWarn = defaultRotationSpeedAtWarn - fishMovementConfigSO.RotationSpeedAtWarnReduceAmountOnGrowth;
+        rotationSpeedAtWarn = newRotationSpeedAtWarn >= fishMovementConfigSO.MinRotationSpeedAtWarn ? newRotationSpeedAtWarn : rotationSpeedAtWarn;
+    }
+
+    private void HandleOnDie()
+    {
+        agent.enabled = false;
     }
 
     private void HandleCurrentFoodDespawned()
@@ -50,9 +110,17 @@ public class FishMovement : MonoBehaviour
         IncreaseSpeed();
     }
 
-    private void HandleFishWarned(Vector3 oppositeDirection)
+    private void HandleFishWarned(Vector3 warnPosition)
     {
+        if(Vector3.Distance(transform.position, warnPosition) >= minWarnDistance)
+            return;
+        
+        Vector3 oppositeDirection = (model.transform.position - warnPosition).normalized;
+        oppositeDirection *= fishMovementConfigSO.WarnPushMultiplier;
+
+        oppositeDirection = TestAquarium.Instance.ClampPosition(oppositeDirection);
         fish.FishMovement.TargetPosition = oppositeDirection;
+
         fish.FishMovement.IncreaseSpeed();
     }
 
@@ -65,8 +133,8 @@ public class FishMovement : MonoBehaviour
             rotationSpeed = defaultRotationSpeed;
         }
         
-        moveSpeed = fishMovementConfigSO.MoveSpeedAtWarn;
-        rotationSpeed = fishMovementConfigSO.RotationSpeedAtWarn;
+        moveSpeed = moveSpeedAtWarn;
+        rotationSpeed = rotationSpeedAtWarn;
 
         float elapsedTime = 0f;
         float totalTime = fishMovementConfigSO.WarnSpeedFadeDuration;
@@ -93,6 +161,7 @@ public class FishMovement : MonoBehaviour
     void Update()
     {
         agent.speed = moveSpeed;
+        transform.eulerAngles = Vector3.zero;
     }
 
     public void MoveToTarget()
@@ -119,11 +188,14 @@ public class FishMovement : MonoBehaviour
             
         return Vector3.Distance(fishPosition, targetPosition) <= 0.5f;
     }
-    
+
     void OnDestroy()
     {
-        fish.FishStateController.OnFishWarned -= HandleFishWarned;
-        fish.OnCurrentFoodSet -= HandleCurrentFoodSet;
-        fish.OnCurrentFoodDespawned -= HandleCurrentFoodDespawned;
+        fish.OnSpawned -= HandleOnSpawned;
+        fish.OnDespawned -= HandleOnDespawned;
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, minWarnDistance);
     }
 }

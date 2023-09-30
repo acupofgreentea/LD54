@@ -16,9 +16,13 @@ public class Food : MonoBehaviour, IPoolable
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(!other.TryGetComponent(out Fish fish))
+        if(!other.TryGetComponent(out FishGrowthController fish))
             return;
 
+        if(fish.HasEatenRecently)
+            return;
+
+        fish.HandleFoodInteraction();
         LeanPool.Despawn(this);
     }
 
