@@ -1,4 +1,3 @@
-using System;
 using Lean.Pool;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,7 +8,7 @@ public class Fish : MonoBehaviour, IPoolable
     public FishStateController FishStateController {get; private set;}
     public FishGrowthController FishGrowthController {get; private set;}
     public FishHealth FishHealth {get; private set;}
-    
+
     public event UnityAction OnSpawned;
     public event UnityAction OnDespawned;
 

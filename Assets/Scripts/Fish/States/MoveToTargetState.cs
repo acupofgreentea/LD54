@@ -14,7 +14,7 @@ public class MoveToTargetState : StateBase
     {
         if(fish.FishGrowthController.CurrentFood != null)
         {
-            fish.FishMovement.TargetPosition = fish.FishGrowthController.CurrentFood.transform.position;
+            fish.FishMovement.TargetPosition = fish.FishGrowthController.CurrentFood.GameObject.transform.position;
         }
 
         fish.FishMovement.MoveToTarget();

@@ -4,22 +4,25 @@ using UnityEngine.Events;
 
 public class FishGrowthController : MonoBehaviour
 {
-    [SerializeField] private FishGrowthConfigSO fishGrowthConfigSO;
+    [SerializeField] protected FishGrowthConfigSO fishGrowthConfigSO;
 
-    private Fish fish;
+    protected Fish fish;
     private float currentGrowthAmount = 1f;
-    private float lastEatTime;
+    protected float lastEatTime;
 
     private float growthAmountPerFood;
 
-    public Food CurrentFood {get; set;}
-    public event UnityAction OnCurrentFoodSet; 
+    public IEatable CurrentFood {get; set;}
+    public  UnityAction OnCurrentFoodSet; 
     public event UnityAction OnCurrentFoodDespawned; 
     public event UnityAction OnFoodEaten;
     public event UnityAction OnHasBecomeMature;
 
-    public bool HasEatenRecently {get; private set;} = false;
+    public bool HasEatenRecently {get; protected set;} = false;
     public bool HasReachedMature => currentGrowthAmount >= fishGrowthConfigSO.MatureGrowthAmount;
+    public bool HasStoppedEatingFood => HasReachedMature && fishGrowthConfigSO.StopEatingFoodAtMature;
+
+    protected bool isCurrentlyMature = false;
 
     public FishGrowthController Init(Fish fish)
     {
@@ -29,8 +32,11 @@ public class FishGrowthController : MonoBehaviour
         return this;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
+        if(HasReachedMature && fishGrowthConfigSO.StopEatingFoodAtMature)
+            return;
+        
         if(!HasEatenRecently)
             return;
         
@@ -58,12 +64,13 @@ public class FishGrowthController : MonoBehaviour
         Food.OnFoodDespawned -= HandleFoodDespawned;
     }
 
-    private void HandleFoodEaten()
+    protected void HandleFoodEaten()
     {
         currentGrowthAmount += growthAmountPerFood;
 
-        if(HasReachedMature)
+        if(HasReachedMature && !isCurrentlyMature)
         {
+            isCurrentlyMature = true;
             OnHasBecomeMature?.Invoke();
             growthAmountPerFood = fishGrowthConfigSO.GrowthAmountAtMature;
         }
@@ -73,8 +80,6 @@ public class FishGrowthController : MonoBehaviour
 
         HasEatenRecently = true;
         lastEatTime = Time.time;
-        Food.OnFoodSpawned -= HandleFoodSpawned;
-        Food.OnFoodDespawned -= HandleFoodDespawned;
         CurrentFood = null;
     }
 
@@ -88,6 +93,8 @@ public class FishGrowthController : MonoBehaviour
     {
         OnFoodEaten?.Invoke();
         HandleFoodEaten();
+        Food.OnFoodSpawned -= HandleFoodSpawned;
+        Food.OnFoodDespawned -= HandleFoodDespawned;
     }
 
     private void HandleFoodDespawned(Food food)
@@ -95,7 +102,7 @@ public class FishGrowthController : MonoBehaviour
         // when food is despawned event will called, then all the fishes will check if the their current food is despawned, checking by getinstance id is faster because of int
         if(CurrentFood != null)
         {
-            if(CurrentFood.gameObject.GetInstanceID() == food.gameObject.GetInstanceID())
+            if(CurrentFood.GameObject.GetInstanceID() == food.gameObject.GetInstanceID())
             {
                 CurrentFood = null;
                 OnCurrentFoodDespawned?.Invoke();
@@ -111,7 +118,7 @@ public class FishGrowthController : MonoBehaviour
             fish.FishStateController.ChangeState(FishState.Patrol);
     }
 
-    private void HandleFoodSpawned()
+    protected virtual void SetFood()
     {
         Food _food = FoodManager.Instance.GetClosestFood(transform.position);
 
@@ -124,8 +131,14 @@ public class FishGrowthController : MonoBehaviour
         }
 
         CurrentFood = _food;
+    }
+
+
+    protected void HandleFoodSpawned()
+    {
+        SetFood();
         fish.FishStateController.ChangeState(FishState.MoveToTarget);
-        fish.FishMovement.TargetPosition = CurrentFood.transform.position;
+        fish.FishMovement.TargetPosition = CurrentFood.GameObject.transform.position;
         OnCurrentFoodSet?.Invoke();
     }
 

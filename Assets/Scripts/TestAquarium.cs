@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Lean.Pool;
 using UnityEngine;
 using UnityEngine.AI;
@@ -25,6 +26,49 @@ public class TestAquarium : MonoBehaviour
         }
 
         Instance = this;
+    }
+
+    public void AddFish(Fish fish)
+    {
+        if(fishesInAquarium.Contains(fish))
+            return;
+
+        fishesInAquarium.Add(fish);
+    }
+
+    public void RemoveFish(Fish fish)
+    {
+        if(!fishesInAquarium.Contains(fish))
+            return;
+
+        fishesInAquarium.Remove(fish);
+
+    }
+
+    public IEatable GetNearesEatable(Vector3 position)
+    {
+        if(fishesInAquarium.Count == 0)
+        {
+            return null;
+        }
+        List<IEatable> eatables = new();
+
+        foreach (var fish in fishesInAquarium)
+        {
+            if(!fish.TryGetComponent(out IEatable eatable))
+                continue;
+
+            eatables.Add(eatable);
+        }
+
+        if(eatables.Count == 0)
+        {
+            Debug.LogError("there are no eatable fish in aquarium");
+            return null;
+        }
+
+        IEatable nearest = eatables.OrderBy(x => Vector3.Distance(x.GameObject.transform.position, position)).First();
+        return nearest;
     }
 
     public Vector3 GetRandomPointOnNavMesh()

@@ -601,7 +601,7 @@ Transform:
   m_GameObject: {fileID: 1516558636}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 5, z: 0}
-  m_LocalScale: {x: 15, y: 10, z: 2}
+  m_LocalScale: {x: 15, y: 10, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1709043236}
@@ -682,7 +682,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1709043235}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -704,7 +704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   padding: 0.25
-  fishPrefab: {fileID: 8307528137045640132, guid: 0f74719755293fd419c8b08b858ed82d,
+  fishPrefab: {fileID: 5647136734346652500, guid: fbd68e0889a6d514d85624d36996fdff,
     type: 3}
   fishesInAquarium: []
   navMeshSurface: {fileID: 1431839088}

@@ -23,14 +23,19 @@ public class FishHealth : MonoBehaviour
     }
 
     [ContextMenu("Die")]
-    private void Die()
+    public void Die()
     {
         OnDie?.Invoke();
+        TestAquarium.Instance.RemoveFish(fish);
+    }    
+
+    private void MoveToBottom()
+    {
         Vector3 targetPosition = transform.position;
         targetPosition.y = 0f;
 
         transform.DOMove(targetPosition, moveDuration).
         OnComplete(() => transform.DOScale(Vector3.zero, 0.45f).
         OnComplete(()=> LeanPool.Despawn(fish)));
-    }    
+    }
 }

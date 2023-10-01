@@ -3,12 +3,15 @@ using Lean.Pool;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Food : MonoBehaviour, IPoolable
+public class Food : MonoBehaviour, IPoolable, IEatable
 {
+    [SerializeField] private float torqueForceAtSpawn = 15f;
     public static event UnityAction<Food> OnFoodDespawned;
     public static event UnityAction OnFoodSpawned;
 
     private Rigidbody rb;
+
+    public GameObject GameObject => this.gameObject;
 
     void Awake()
     {
@@ -20,6 +23,9 @@ public class Food : MonoBehaviour, IPoolable
             return;
 
         if(fish.HasEatenRecently)
+            return;
+
+        if(fish.HasStoppedEatingFood)
             return;
 
         fish.HandleFoodInteraction();
@@ -39,6 +45,8 @@ public class Food : MonoBehaviour, IPoolable
             yield return null;
             OnFoodSpawned?.Invoke();
         }
+
+        rb.AddTorque(new Vector3(Random.value, Random.value, Random.value) * torqueForceAtSpawn);
     }
 
     public void OnDespawn()
