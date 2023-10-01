@@ -86,7 +86,6 @@ public class FishGrowthController : MonoBehaviour
 
     public void HandleFoodInteraction()
     {
-        Debug.LogError("handle food eaten");
         OnFoodEaten?.Invoke();
         HandleFoodEaten();
     }

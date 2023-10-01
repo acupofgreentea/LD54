@@ -1,3 +1,4 @@
+using Lean.Pool;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -5,6 +6,8 @@ public class PlayerActionHandler : MonoBehaviour
 {
     public static event UnityAction<Vector3> OnFeed;    
     public static event UnityAction<Vector3> OnWarnFishes;
+
+    [SerializeField] private ParticleSystem splashParticle;
 
     private Camera cam;
 
@@ -25,7 +28,11 @@ public class PlayerActionHandler : MonoBehaviour
 
         if(Input.GetMouseButtonDown(0))
         {
-            OnWarnFishes?.Invoke(worldPosition);       
+            OnWarnFishes?.Invoke(worldPosition);
+            var splash = LeanPool.Spawn(splashParticle);   
+            splash.transform.position = worldPosition;    
+            splash.Play();
+            LeanPool.Despawn(splash, 1f);
         }
 
         if(Input.GetMouseButtonDown(1))
