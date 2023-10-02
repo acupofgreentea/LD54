@@ -131,14 +131,17 @@ public class TestAquarium : MonoBehaviour
             var fish = LeanPool.Spawn(fishPrefabs.GetRandom(), GetRandomPointOnNavMesh(), Quaternion.identity);
             fishesInAquarium.Add(fish);
         }
+
+        if(Input.GetKeyDown(KeyCode.O))
+            ScreenCapture.CaptureScreenshot("Level.png");
     }
 #endif
     public Vector3 ClampPosition(Vector3 targetPosition)
     {
         Vector3 clampedPosition = targetPosition;
 
-        clampedPosition.x = Mathf.Clamp(clampedPosition.x, -WIDTH/2 + padding, WIDTH/2 - padding);
-        clampedPosition.y = Mathf.Clamp(clampedPosition.y, padding, HEIGHT - padding);
+        clampedPosition.x = Mathf.Clamp(clampedPosition.x, transform.position.y + (-WIDTH/2 + padding), transform.position.z + (WIDTH/2 - padding));
+        clampedPosition.y = Mathf.Clamp(clampedPosition.y, transform.position.y + padding, transform.position.z +  (HEIGHT - padding));
         //clampedPosition.z = Mathf.Clamp(clampedPosition.z, 0f, 0f); => fish state controller onworn method, we already change z position no need to clamp it.
 
         return clampedPosition;

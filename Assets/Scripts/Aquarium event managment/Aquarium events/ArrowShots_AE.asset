@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ArrowShots_AE
   m_EditorClassIdentifier: 
   Name: ArrowShots
-  Pic: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  Pic: {fileID: 21300000, guid: 39e1a816e8e1a4a459f807ba06f1d1f7, type: 3}
   afterTime: 10
   _theEvent: {fileID: 6112918103606455082, guid: ddde46237affd574a9cc84afbe234798,
     type: 3}

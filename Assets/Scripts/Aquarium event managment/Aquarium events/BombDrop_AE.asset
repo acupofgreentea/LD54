@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BombDrop_AE
   m_EditorClassIdentifier: 
   Name: BombDrop
-  Pic: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  Pic: {fileID: 21300000, guid: fc309763423091b49a619616a545cadf, type: 3}
   afterTime: 20
   _theEvent: {fileID: 4887205792933614686, guid: f884c3c135561464f958c06a14073b8a,
     type: 3}

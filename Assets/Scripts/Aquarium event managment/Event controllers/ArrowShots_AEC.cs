@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ArrowShots_AEC : MonoBehaviour, IAquariumEvent
 {
@@ -26,7 +27,7 @@ public class ArrowShots_AEC : MonoBehaviour, IAquariumEvent
 
     [Header("Variables")]
     public float ThrowDelay;
-    [Tooltip("Þu an göstermelik")]  public int ArrowCount = 3;
+    [Tooltip("ï¿½u an gï¿½stermelik")]  public int ArrowCount = 3;
 
     [Header("References")]
     public Animator[] Arrows = new Animator[3];
@@ -52,7 +53,7 @@ public class ArrowShots_AEC : MonoBehaviour, IAquariumEvent
     int happenLoop;
     public void Happen()
     {
-        //her okun fýrlatýlma çizgisini ve ayrý fýrlatýlma zamanlarýný belirle
+        //her okun fï¿½rlatï¿½lma ï¿½izgisini ve ayrï¿½ fï¿½rlatï¿½lma zamanlarï¿½nï¿½ belirle
         delay = ThrowDelay;
         for (happenLoop = 0; happenLoop < 3; happenLoop++)
         {
@@ -72,7 +73,7 @@ public class ArrowShots_AEC : MonoBehaviour, IAquariumEvent
             delay += Random.Range(0.3f, 2);
         }
 
-        //oklarýn geçeceði yolu göster ve biraz bekle
+        //oklarï¿½n geï¿½eceï¿½i yolu gï¿½ster ve biraz bekle
         StopAllCoroutines();
         StartCoroutine(ThrowWait());
 
@@ -112,17 +113,17 @@ public class ArrowShots_AEC : MonoBehaviour, IAquariumEvent
     float ang;
     void ThrowArrow()
     {
-        //oku çevir
+        //oku ï¿½evir
         dir = actionList[thrown].ThrowAtPosition - actionList[thrown].ThrowFromPosition;
         dir.z = 0;
 
         ang = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         ArrowTs[thrown].rotation = Quaternion.Euler((ang + 90) * Vector3.forward);
 
-        //oku baþlangýç konumuna býrakýp hedef konuma fýrlat
+        //oku baï¿½langï¿½ï¿½ konumuna bï¿½rakï¿½p hedef konuma fï¿½rlat
         StartCoroutine(HitScanShot(thrown));
 
-        //okun gittiði çizgiyi raycast ile kontrol edip bütün çarptýklarýný öldür
+        //okun gittiï¿½i ï¿½izgiyi raycast ile kontrol edip bï¿½tï¿½n ï¿½arptï¿½klarï¿½nï¿½ ï¿½ldï¿½r
         for (int i = 0; i < 128; i++) results[i] = new RaycastHit();
         Physics.RaycastNonAlloc(actionList[thrown].ThrowFromPosition, actionList[thrown].ThrowAtPosition, results, 10, FishLayers);
 
@@ -134,7 +135,6 @@ public class ArrowShots_AEC : MonoBehaviour, IAquariumEvent
             c.collider.GetComponent<FishHealth>().Die();
         }
     }
-
 
     const string trig_shake = "shake";
     IEnumerator HitScanShot(int index)
@@ -151,7 +151,7 @@ public class ArrowShots_AEC : MonoBehaviour, IAquariumEvent
 
             if (lerpy == 1)
             {
-                // okun animasyonunu çalýþtýr ki yok olsun
+                // okun animasyonunu ï¿½alï¿½ï¿½tï¿½r ki yok olsun
                 Arrows[index].SetTrigger(trig_shake);
 
                 break;
@@ -172,7 +172,7 @@ public class ArrowShots_AEC : MonoBehaviour, IAquariumEvent
             {
                 currentDuration = 0;
 
-                //ardýndan despawn ol
+                //ardï¿½ndan despawn ol
                 Lean.Pool.LeanPool.Despawn(this);
 
             }

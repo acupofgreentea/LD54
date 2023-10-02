@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CatSweep_AE
   m_EditorClassIdentifier: 
   Name: CatSweep
-  Pic: {fileID: 21300000, guid: db2224dd326a6f447817905cfc1a363f, type: 3}
+  Pic: {fileID: 21300000, guid: 8753b389a0f48b24185a0681253465d8, type: 3}
   afterTime: 25
   _theEvent: {fileID: 1698015752381243613, guid: ecdf8249b0ac2e146b1ba16992ea2e4b,
     type: 3}
