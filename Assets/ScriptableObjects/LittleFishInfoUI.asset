@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2722ce17b666f0645b884ac86be8a9ce, type: 3}
   m_Name: LittleFishInfoUI
   m_EditorClassIdentifier: 
-  <FishImage>k__BackingField: {fileID: 21300000, guid: fc7d1d8e8d3528348996981ff43b6470,
+  <FishImage>k__BackingField: {fileID: 21300000, guid: 6f348f4f96844f64d9bcb749e0c1cfc6,
     type: 3}
   <FishName>k__BackingField: Anchovy

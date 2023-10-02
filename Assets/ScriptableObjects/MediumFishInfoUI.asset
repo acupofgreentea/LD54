@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2722ce17b666f0645b884ac86be8a9ce, type: 3}
   m_Name: MediumFishInfoUI
   m_EditorClassIdentifier: 
-  <FishImage>k__BackingField: {fileID: 21300000, guid: 0e070120acd9dea4a92f62a692e282e1,
+  <FishImage>k__BackingField: {fileID: 21300000, guid: 684bc5bd18d78df4f947fd8daeb3e46c,
     type: 3}
   <FishName>k__BackingField: Goldfish

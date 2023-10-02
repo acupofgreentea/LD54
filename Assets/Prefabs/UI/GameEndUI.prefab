@@ -1020,7 +1020,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playAgainButton: {fileID: 6525464747137659997}
   exitButton: {fileID: 6525464747818970571}
-  panel: {fileID: 0}
+  panel: {fileID: 6525464746816148059}
 --- !u!1 &7156886141387739880
 GameObject:
   m_ObjectHideFlags: 0

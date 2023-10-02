@@ -36,10 +36,10 @@ public class Fish : MonoBehaviour, IPoolable
                 DataManager.CurrentMoney += 30;
                 break;
             case FishType.LittleFish:
-                TestAquarium.Instance.SpawnFish(FishType, 1);
+                TestAquarium.Instance.SpawnFish(FishType, 3);
                 break;
             case FishType.MediumFish:
-                TestAquarium.Instance.SpawnFish(FishType, 3);
+                TestAquarium.Instance.SpawnFish(FishType, 1);
                 break;
         }
     }

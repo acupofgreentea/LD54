@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2722ce17b666f0645b884ac86be8a9ce, type: 3}
   m_Name: BigFishInfoUI
   m_EditorClassIdentifier: 
-  <FishImage>k__BackingField: {fileID: 21300000, guid: 8f60c382472d842418cca062e0193199,
+  <FishImage>k__BackingField: {fileID: 21300000, guid: db95bf6ac5d7e6647bf502cd272017a6,
     type: 3}
   <FishName>k__BackingField: Tuna

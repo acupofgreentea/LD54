@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2722ce17b666f0645b884ac86be8a9ce, type: 3}
   m_Name: WhaleInfoUI
   m_EditorClassIdentifier: 
-  <FishImage>k__BackingField: {fileID: 21300000, guid: 37b1d0c055f3e594f911ec3e15204cb1,
+  <FishImage>k__BackingField: {fileID: 21300000, guid: 792437dba52aed040a61151236257164,
     type: 3}
   <FishName>k__BackingField: Mini Whale
