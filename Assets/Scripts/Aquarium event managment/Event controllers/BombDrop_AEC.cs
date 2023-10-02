@@ -33,7 +33,7 @@ public class BombDrop_AEC : MonoBehaviour, IAquariumEvent
     {
         //rasgele bir konum seçip oraya bombayý yukarýdan býrak
         horizontalSelection = Random.Range(-5,5);
-        BombT.position = new Vector3(horizontalSelection, 5);
+        BombT.position = new Vector3(horizontalSelection, 5, -3);
 
         //bomba fitil animasyonu sergilesin
             Bomb.SetTrigger(trig_Ignited);
