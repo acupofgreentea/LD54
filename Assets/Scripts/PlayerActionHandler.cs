@@ -45,7 +45,6 @@ public class PlayerActionHandler : MonoBehaviour
             return;
 
         Vector3 worldPosition = hit.point;        
-        worldPosition.z = 0f;
 
         if(Input.GetMouseButtonDown(0))
         {
