@@ -154,6 +154,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   splashParticle: {fileID: 8771972552311404798, guid: bbf9e36a48d6c5648a13889afab076fd,
     type: 3}
+  hitLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!4 &244593744
 Transform:
   m_ObjectHideFlags: 0
@@ -860,6 +863,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1089578529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1089578530}
+  - component: {fileID: 1089578531}
+  m_Layer: 7
+  m_Name: Plane_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 8
+  m_IsActive: 1
+--- !u!4 &1089578530
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089578529}
+  m_LocalRotation: {x: -0.14878775, y: -0, z: -0, w: 0.98886913}
+  m_LocalPosition: {x: 0, y: 1.19, z: -1.07}
+  m_LocalScale: {x: 1.5, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1709043236}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: -17.113, y: 0, z: 0}
+--- !u!65 &1089578531
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089578529}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12.024338, y: 0.1, z: 8.114532}
+  m_Center: {x: 0.076712295, y: 4.6620727e-18, z: 0.0013046265}
 --- !u!1 &1202958529
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,6 +1254,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 1412623000660421310, guid: 5b200172813bf4a4e99a905aacd9c6a7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.49
+      objectReference: {fileID: 0}
     - target: {fileID: 2749759218158921937, guid: 5b200172813bf4a4e99a905aacd9c6a7,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1414,7 +1467,7 @@ GameObject:
   - component: {fileID: 1431839084}
   - component: {fileID: 1431839088}
   - component: {fileID: 1431839089}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1429,7 +1482,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1431839083}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 5, z: -0.25}
+  m_LocalPosition: {x: 0, y: 5, z: -0.19}
   m_LocalScale: {x: 1.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1667,6 +1720,7 @@ Transform:
   - {fileID: 636824127}
   - {fileID: 1202958530}
   - {fileID: 489149628}
+  - {fileID: 1089578530}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

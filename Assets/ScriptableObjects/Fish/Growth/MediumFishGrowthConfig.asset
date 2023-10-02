@@ -18,6 +18,6 @@ MonoBehaviour:
   <GrowthScaleDuration>k__BackingField: 0.75
   <FullnessDuration>k__BackingField: 3
   <StopEatingFoodAtMature>k__BackingField: 0
-  getRandomRevenueBetweenValues: 1
+  getRandomRevenueBetweenValues: 0
   minRevenueValue: 1
   maxRevenueValue: 10

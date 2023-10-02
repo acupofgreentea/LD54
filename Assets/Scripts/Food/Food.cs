@@ -6,6 +6,8 @@ using UnityEngine.Events;
 public class Food : MonoBehaviour, IPoolable, IEatable
 {
     [SerializeField] private float torqueForceAtSpawn = 15f;
+
+
     public static event UnityAction<Food> OnFoodDespawned;
     public static event UnityAction OnFoodSpawned;
 

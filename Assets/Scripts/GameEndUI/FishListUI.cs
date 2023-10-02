@@ -28,6 +28,7 @@ public class FishListUI : MonoBehaviour
     private void InitPanel()
     {
         var fishes = TestAquarium.Instance.GetFishes;
+        totalMoneyAmount = 0;
         StartCoroutine(Sequence());
         IEnumerator Sequence()
         {
@@ -46,7 +47,12 @@ public class FishListUI : MonoBehaviour
                 int moneyAmount = 0;
                 foreach (var item in typeFishes)
                 {
-                    moneyAmount += item.FishGrowthController.GetRevenueAmount;
+                    if(item.FishType == FishType.Whale)
+                    {
+                        moneyAmount += item.GetComponent<MiniWhaleGrowthController>().GetRevenueAmount;
+                    }
+                    else
+                        moneyAmount += item.FishGrowthController.GetRevenueAmount;
                 }
                 totalMoneyAmount += moneyAmount;
                 

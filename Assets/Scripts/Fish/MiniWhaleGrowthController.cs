@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MiniWhaleGrowthController : FishGrowthController
 {
-    public new int GetRevenueAmount => base.GetRevenueAmount + extraRevenue;
+    public new int GetRevenueAmount => Mathf.RoundToInt(fishGrowthConfigSO.RevenueAmount * currentGrowthAmount) + extraRevenue;
 
     private int extraRevenue = 0;
     protected override void Update()

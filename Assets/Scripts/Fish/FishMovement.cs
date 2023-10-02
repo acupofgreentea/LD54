@@ -171,6 +171,9 @@ public class FishMovement : MonoBehaviour
         if(TargetPosition == null)
             return;
 
+        if(!agent.enabled)
+            return;
+        
         agent.SetDestination(TargetPosition.Value);
         //transform.position = Vector3.MoveTowards(transform.position, TargetPosition.Value, moveSpeed * Time.deltaTime);
         Vector3 direction = TargetPosition.Value - transform.position;

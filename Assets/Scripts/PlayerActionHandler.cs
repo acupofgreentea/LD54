@@ -10,6 +10,8 @@ public class PlayerActionHandler : MonoBehaviour
 
     [SerializeField] private ParticleSystem splashParticle;
 
+    [SerializeField] private LayerMask hitLayer;
+
     private Camera cam;
     private bool acceptInput = true;
 
@@ -41,7 +43,7 @@ public class PlayerActionHandler : MonoBehaviour
         
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-        if(!Physics.Raycast(ray, out var hit))
+        if(!Physics.Raycast(ray, out var hit, Mathf.Infinity, hitLayer))
             return;
 
         Vector3 worldPosition = hit.point;   
@@ -62,7 +64,7 @@ public class PlayerActionHandler : MonoBehaviour
                 return;
             
             DataManager.CurrentMoney -= 1;
-            OnFeed?.Invoke(worldPosition);
+            OnFeed?.Invoke(hit.point);
         }
     }
 

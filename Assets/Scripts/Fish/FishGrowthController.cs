@@ -6,12 +6,14 @@ public class FishGrowthController : MonoBehaviour
 {
     [SerializeField] protected FishGrowthConfigSO fishGrowthConfigSO;
     [SerializeField] private AudioSource becomeMatureAudio;
+    
+    [SerializeField] private AudioSource eatenAudio;
     protected Fish fish;
-    private float currentGrowthAmount = 1f;
+    protected float currentGrowthAmount = 1f;
     public float CurrentGrowthAmount => currentGrowthAmount;
     protected float lastEatTime;
 
-    private float growthAmountPerFood;
+    protected float growthAmountPerFood;
 
     public IEatable CurrentFood {get; set;}
     public  UnityAction OnCurrentFoodSet; 
@@ -98,6 +100,7 @@ public class FishGrowthController : MonoBehaviour
 
     public void HandleFoodInteraction()
     {
+        eatenAudio.Play();
         OnFoodEaten?.Invoke();
         HandleFoodEaten();
         Food.OnFoodSpawned -= HandleFoodSpawned;
