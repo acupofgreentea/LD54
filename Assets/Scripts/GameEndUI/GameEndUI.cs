@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,12 +20,22 @@ public class GameEndUI : MonoBehaviour
     private void Start()
     {
         AquariumEventsManager.AllEventsCompleted += HandleAllEventsCompleted;
-        TestAquarium.OnAquariumIsEmpty += HandleAllEventsCompleted;
+        TestAquarium.OnAquariumIsEmpty += HandleAquariumEmpty;
+    }
+
+    private void HandleAquariumEmpty()
+    {
+        panel.SetActive(true);
     }
 
     private void HandleAllEventsCompleted()
     {
-        panel.SetActive(true);
+        StartCoroutine(Delay());
+        IEnumerator Delay()
+        {
+            yield return new WaitForSeconds(5f);
+            panel.SetActive(true);
+        }
     }
 
     private void HandleExitButton()
@@ -34,7 +46,7 @@ public class GameEndUI : MonoBehaviour
     void OnDestroy()
     {
         AquariumEventsManager.AllEventsCompleted -= HandleAllEventsCompleted;
-        TestAquarium.OnAquariumIsEmpty -= HandleAllEventsCompleted;
+        TestAquarium.OnAquariumIsEmpty -= HandleAquariumEmpty;
     }
 
     private void HandlePlayAgainButton()

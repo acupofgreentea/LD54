@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class MiniWhaleGrowthController : FishGrowthController
 {
+    public new int GetRevenueAmount => base.GetRevenueAmount + extraRevenue;
+
+    private int extraRevenue = 0;
     protected override void Update()
     {
         if(HasReachedMature)
@@ -50,10 +53,12 @@ public class MiniWhaleGrowthController : FishGrowthController
         if(HasEatenRecently)
             return;
         
-        if(!other.TryGetComponent(out FishHealth _fish))
+        if(!other.TryGetComponent(out Fish _fish))
             return;
         
-        _fish.Die(false);
+        extraRevenue += _fish.FishGrowthController.GetRevenueAmount;
+
+        _fish.FishHealth.Die(false);
         HandleFoodEaten();
         CurrentFood = null;
         LeanPool.Despawn(_fish);

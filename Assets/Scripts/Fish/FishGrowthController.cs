@@ -5,6 +5,7 @@ using UnityEngine.Events;
 public class FishGrowthController : MonoBehaviour
 {
     [SerializeField] protected FishGrowthConfigSO fishGrowthConfigSO;
+    [SerializeField] private AudioSource becomeMatureAudio;
     protected Fish fish;
     private float currentGrowthAmount = 1f;
     public float CurrentGrowthAmount => currentGrowthAmount;
@@ -76,6 +77,7 @@ public class FishGrowthController : MonoBehaviour
             isCurrentlyMature = true;
             OnHasBecomeMature?.Invoke();
             growthAmountPerFood = fishGrowthConfigSO.GrowthAmountAtMature;
+            becomeMatureAudio.Play();
         }
 
         Vector3 nextScale  = transform.localScale + Vector3.one * growthAmountPerFood; 

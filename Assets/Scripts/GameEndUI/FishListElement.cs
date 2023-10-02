@@ -1,4 +1,3 @@
-using System.Collections;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -10,6 +9,7 @@ public class FishListElement : MonoBehaviour
     [SerializeField] private Image moneyImage;
 
     [SerializeField] private TMP_Text fishNameText;
+    [SerializeField] private TMP_Text fishCountText;
     [SerializeField] private TMP_Text heaviestFishText;
     [SerializeField] private TMP_Text moneyAmountText;
 
@@ -23,7 +23,8 @@ public class FishListElement : MonoBehaviour
     public void Init(FishInfoUI fishInfoUI, int fishAmount, Sprite moneySprite, float heaviestFishKg, int moneyAmount)
     {
         fishImage.sprite = fishInfoUI.FishImage;
-        fishNameText.text = $"{fishInfoUI.FishName} x{fishAmount}";
+        fishNameText.text = $"{fishInfoUI.FishName}";
+        fishCountText.text = $"{fishAmount}";
         moneyImage.sprite = moneySprite;
         heaviestFishText.text = heaviestFishKg.ToString("0.00") + "kg";
 
@@ -38,8 +39,6 @@ public class FishListElement : MonoBehaviour
         DOTween.To(()=> canvasGroup.alpha, x=> canvasGroup.alpha = x, 1f, 0.65f).OnComplete(()=>
         DOTween.To(()=> startMoneyAmount, x => startMoneyAmount = x, moneyAmount, 1.15f).SetEase(Ease.OutCirc).OnUpdate(()=> 
         moneyAmountText.text = startMoneyAmount.ToString()));
-
-        
     }
 
     private int moneyAmount;

@@ -18,6 +18,7 @@ public class TestAquarium : MonoBehaviour
 
     public static TestAquarium Instance;
     [SerializeField] private NavMeshSurface navMeshSurface;
+    [SerializeField] private AudioSource spawnFishSound;
 
     public static event UnityAction  OnAquariumIsEmpty;
 
@@ -91,6 +92,7 @@ public class TestAquarium : MonoBehaviour
         {    
             var fish = LeanPool.Spawn(fishPrefab, GetRandomPointOnNavMesh(), Quaternion.identity);
             fishesInAquarium.Add(fish);   
+            spawnFishSound.Play();
         }
     }
 

@@ -9,6 +9,8 @@ public class FoodManager : MonoBehaviour
 
     [SerializeField] private List<Food> activeFoods = new();
 
+    [SerializeField] private AudioSource foodAudio;
+
     public static FoodManager Instance;
 
 
@@ -32,6 +34,7 @@ public class FoodManager : MonoBehaviour
     {
         var food = LeanPool.Spawn(foodPrefab, spawnPosition, Random.rotation);
         activeFoods.Add(food);
+        foodAudio.Play();
     }
 
     public bool TryGetAvailableFood(out Food food)

@@ -34,7 +34,7 @@ public class Food : MonoBehaviour, IPoolable, IEatable
     
     void Update()
     {
-        if(transform.position.y <= 0.1f)
+        if(transform.position.y <= -4f)
             LeanPool.Despawn(this);
     }
 

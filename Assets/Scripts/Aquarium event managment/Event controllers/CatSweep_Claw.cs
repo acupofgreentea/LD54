@@ -2,14 +2,12 @@ using UnityEngine;
 
 public class CatSweep_Claw : MonoBehaviour
 {
-
-    const string tag_fish = "Fish";
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(tag_fish))
+        if (other.TryGetComponent(out FishHealth fish))
         {
             //Lean.Pool.LeanPool.Despawn(other.GetComponent<Fish>());
-            other.GetComponent<FishHealth>().Die();
+            fish.Die();
         }
     }
 }

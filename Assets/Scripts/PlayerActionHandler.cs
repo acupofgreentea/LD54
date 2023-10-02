@@ -1,7 +1,7 @@
-using System;
 using Lean.Pool;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class PlayerActionHandler : MonoBehaviour
 {
@@ -33,6 +33,11 @@ public class PlayerActionHandler : MonoBehaviour
     {
         if(!acceptInput)
             return;
+            
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
         
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
