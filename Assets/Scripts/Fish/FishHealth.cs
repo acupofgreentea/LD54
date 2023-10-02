@@ -9,24 +9,33 @@ public class FishHealth : MonoBehaviour
     public event UnityAction OnDie;
     private Fish fish;
 
+    private Animator animator;
     public FishHealth Init(Fish fish)
     {
         this.fish = fish;
+        animator = GetComponentInChildren<Animator>();
 
         return this;
     }
 
+#if UNITY_EDITOR
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.K))
             Die();
     }
-
+#endif
     [ContextMenu("Die")]
-    public void Die()
+    public void Die(bool willFall = true)
     {
         OnDie?.Invoke();
+        animator.enabled = false;
         TestAquarium.Instance.RemoveFish(fish);
+
+        if(willFall)
+        {
+            MoveToBottom();
+        }
     }    
 
     private void MoveToBottom()

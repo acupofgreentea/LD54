@@ -14,12 +14,15 @@ public static class DataManager
         set => PlayerPrefs.SetFloat("SfxVolume", value);
     }
 
+    private static int currentMoney = 250;
+
+    public static void ResetMoney() => currentMoney = 250;
     public static int CurrentMoney
     {
-        get => PlayerPrefs.GetInt("Money", 10);
+        get => currentMoney;
         set 
         {
-            PlayerPrefs.SetInt("Money", value);
+            currentMoney = value;
             CurrencyUpdate?.Invoke();
         }
     }

@@ -10,10 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ea59dbcc86e0c34b8032247cf4eac7d, type: 3}
-  m_Name: TestNewFishGrowthConfig
+  m_Name: BigFishGrowthConfig
   m_EditorClassIdentifier: 
-  <GrowthAmount>k__BackingField: 0.25
+  <GrowthAmount>k__BackingField: 0.15
   <GrowthAmountAtMature>k__BackingField: 0.05
   <MatureGrowthAmount>k__BackingField: 1.5
-  <GrowthScaleDuration>k__BackingField: 0.35
-  <FullnessDuration>k__BackingField: 0
+  <GrowthScaleDuration>k__BackingField: 0.75
+  <FullnessDuration>k__BackingField: 4
+  <StopEatingFoodAtMature>k__BackingField: 0
+  getRandomRevenueBetweenValues: 1
+  minRevenueValue: 3
+  maxRevenueValue: 30

@@ -30,6 +30,7 @@ public class MiniWhaleGrowthController : FishGrowthController
         fish.FishStateController.ChangeState(FishState.MoveToTarget);
         fish.FishMovement.TargetPosition = CurrentFood.GameObject.transform.position;
         OnCurrentFoodSet?.Invoke();
+        HasEatenRecently = false;
     }
 
     protected override void SetFood()
@@ -52,7 +53,7 @@ public class MiniWhaleGrowthController : FishGrowthController
         if(!other.TryGetComponent(out FishHealth _fish))
             return;
         
-        _fish.Die();
+        _fish.Die(false);
         HandleFoodEaten();
         CurrentFood = null;
         LeanPool.Despawn(_fish);

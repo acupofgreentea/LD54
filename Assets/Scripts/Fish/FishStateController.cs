@@ -71,5 +71,6 @@ public class FishStateController : MonoBehaviour
     {
         fish.OnSpawned -= HandleOnSpawned;
         fish.OnDespawned -= HandleOnDespawned;
+        PlayerActionHandler.OnWarnFishes -= HandleWarn;
     }
 }

@@ -10,5 +10,10 @@ public class FishGrowthConfigSO : ScriptableObject
     [field: SerializeField] public float FullnessDuration {get; private set;} = 5f;
     [field: SerializeField] public bool StopEatingFoodAtMature {get; private set;} = false;
 
-    [field: SerializeField] public float RevenueAmount {get; private set;} = 5f;
+    public float RevenueAmount => getRandomRevenueBetweenValues ? Random.Range(minRevenueValue, maxRevenueValue) : maxRevenueValue;
+
+    [SerializeField] private bool getRandomRevenueBetweenValues = false;
+
+    [SerializeField] private float minRevenueValue; 
+    [SerializeField] private float maxRevenueValue; 
 }

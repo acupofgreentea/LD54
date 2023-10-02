@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9ba62399afd5dd4388dc22147a7eb76, type: 3}
-  m_Name: TestFishMovementConfig
+  m_Name: LittleFishMovementConfig
   m_EditorClassIdentifier: 
-  <MoveSpeed>k__BackingField: 1.25
-  <RotationSpeed>k__BackingField: 2
-  <MinMoveSpeed>k__BackingField: 0.5
-  <MinRotationSpeed>k__BackingField: 1
+  <MoveSpeed>k__BackingField: 3
+  <RotationSpeed>k__BackingField: 4
+  <MinMoveSpeed>k__BackingField: 1.5
+  <MinRotationSpeed>k__BackingField: 2
   <MoveSpeedAtWarn>k__BackingField: 10
-  <RotationSpeedAtWarn>k__BackingField: 6
+  <RotationSpeedAtWarn>k__BackingField: 8
   <MinMoveSpeedAtWarn>k__BackingField: 4
   <MinRotationSpeedAtWarn>k__BackingField: 5
   <WarnSpeedFadeDuration>k__BackingField: 1.75
   <WarnPushMultiplier>k__BackingField: 10
-  <MoveSpeedReduceAmountOnGrowth>k__BackingField: 0.15
-  <RotationSpeedReduceAmountOnGrowth>k__BackingField: 0.2
-  <MoveSpeedAtWarnReduceAmountOnGrowth>k__BackingField: 2
-  <RotationSpeedAtWarnReduceAmountOnGrowth>k__BackingField: 1
+  <MoveSpeedReduceAmountOnGrowth>k__BackingField: 0.1
+  <RotationSpeedReduceAmountOnGrowth>k__BackingField: 0.1
+  <MoveSpeedAtWarnReduceAmountOnGrowth>k__BackingField: 1.5
+  <RotationSpeedAtWarnReduceAmountOnGrowth>k__BackingField: 1.5

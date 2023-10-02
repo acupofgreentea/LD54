@@ -1,3 +1,4 @@
+using System;
 using Lean.Pool;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,14 +11,29 @@ public class PlayerActionHandler : MonoBehaviour
     [SerializeField] private ParticleSystem splashParticle;
 
     private Camera cam;
+    private bool acceptInput = true;
 
     void Awake()
     {
         cam = Camera.main;
     }
 
+    void Start()
+    {
+        AquariumEventsManager.AllEventsCompleted += HandleLevelFinish;
+        TestAquarium.OnAquariumIsEmpty += HandleLevelFinish;
+    }
+
+    private void HandleLevelFinish()
+    {
+        acceptInput = false;
+    }
+
     void Update()
     {
+        if(!acceptInput)
+            return;
+        
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
         if(!Physics.Raycast(ray, out var hit))
@@ -37,8 +53,18 @@ public class PlayerActionHandler : MonoBehaviour
 
         if(Input.GetMouseButtonDown(1))
         {
+            if(DataManager.CurrentMoney <= 0)
+                return;
+            
+            DataManager.CurrentMoney -= 1;
             OnFeed?.Invoke(worldPosition);
         }
+    }
+
+    void OnDestroy()
+    {
+        AquariumEventsManager.AllEventsCompleted -= HandleLevelFinish;
+        TestAquarium.OnAquariumIsEmpty -= HandleLevelFinish;
     }
 
 }

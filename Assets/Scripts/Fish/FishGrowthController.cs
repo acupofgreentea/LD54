@@ -90,6 +90,8 @@ public class FishGrowthController : MonoBehaviour
     {
         fish.OnSpawned -= HandleOnSpawned;
         fish.OnDespawned -= HandleOnDespawned;
+        Food.OnFoodSpawned -= HandleFoodSpawned;
+        Food.OnFoodDespawned -= HandleFoodDespawned;
     }
 
     public void HandleFoodInteraction()

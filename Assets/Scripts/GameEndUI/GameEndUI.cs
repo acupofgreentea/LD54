@@ -18,6 +18,7 @@ public class GameEndUI : MonoBehaviour
     private void Start()
     {
         AquariumEventsManager.AllEventsCompleted += HandleAllEventsCompleted;
+        TestAquarium.OnAquariumIsEmpty += HandleAllEventsCompleted;
     }
 
     private void HandleAllEventsCompleted()
@@ -33,10 +34,12 @@ public class GameEndUI : MonoBehaviour
     void OnDestroy()
     {
         AquariumEventsManager.AllEventsCompleted -= HandleAllEventsCompleted;
+        TestAquarium.OnAquariumIsEmpty -= HandleAllEventsCompleted;
     }
 
     private void HandlePlayAgainButton()
     {
+        DataManager.ResetMoney();
         SceneManagement.Instance.LoadSceneAsync(1); // gamescene
     }
 }

@@ -31,13 +31,16 @@ public class Food : MonoBehaviour, IPoolable, IEatable
         fish.HandleFoodInteraction();
         LeanPool.Despawn(this);
     }
+    
+    void Update()
+    {
+        if(transform.position.y <= 0.1f)
+            LeanPool.Despawn(this);
+    }
 
     public void OnSpawn()
     {
         rb.velocity = Vector3.zero;
-
-        if(gameObject.activeInHierarchy) //temp
-            LeanPool.Despawn(this, 3f);
 
         StartCoroutine(Delay());
         IEnumerator Delay()

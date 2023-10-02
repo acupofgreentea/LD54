@@ -3,6 +3,7 @@ using System.Linq;
 using Lean.Pool;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class TestAquarium : MonoBehaviour
 {
@@ -18,8 +19,9 @@ public class TestAquarium : MonoBehaviour
     public static TestAquarium Instance;
     [SerializeField] private NavMeshSurface navMeshSurface;
 
-    private Dictionary<FishType, Fish> fishDic = new();
-    void Awake()
+    public static event UnityAction  OnAquariumIsEmpty;
+
+    private void Awake()
     {
         if(Instance)
         {
@@ -28,6 +30,11 @@ public class TestAquarium : MonoBehaviour
         }
 
         Instance = this;
+    }
+
+    void Start()
+    {
+        SpawnFish((FishType)Random.Range(0, 4), 1);
     }
 
     public List<Fish> GetFishes => fishesInAquarium;
@@ -46,7 +53,9 @@ public class TestAquarium : MonoBehaviour
             return;
 
         fishesInAquarium.Remove(fish);
-
+        
+        if(fishesInAquarium.Count == 0)
+            OnAquariumIsEmpty?.Invoke();
     }
 
     public IEatable GetNearesEatable(Vector3 position)
@@ -112,6 +121,7 @@ public class TestAquarium : MonoBehaviour
         return randomPoint;
     }
 
+#if UNITY_EDITOR
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))
@@ -120,7 +130,7 @@ public class TestAquarium : MonoBehaviour
             fishesInAquarium.Add(fish);
         }
     }
-
+#endif
     public Vector3 ClampPosition(Vector3 targetPosition)
     {
         Vector3 clampedPosition = targetPosition;
