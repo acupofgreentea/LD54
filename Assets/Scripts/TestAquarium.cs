@@ -11,12 +11,14 @@ public class TestAquarium : MonoBehaviour
 
     [SerializeField] private  float padding = 1f;
 
-    [SerializeField] private Fish fishPrefab;
+    [SerializeField] private List<Fish> fishPrefabs;
 
     [SerializeField] private List<Fish> fishesInAquarium;
 
     public static TestAquarium Instance;
     [SerializeField] private NavMeshSurface navMeshSurface;
+
+    private Dictionary<FishType, Fish> fishDic = new();
     void Awake()
     {
         if(Instance)
@@ -27,6 +29,8 @@ public class TestAquarium : MonoBehaviour
 
         Instance = this;
     }
+
+    public List<Fish> GetFishes => fishesInAquarium;
 
     public void AddFish(Fish fish)
     {
@@ -63,12 +67,22 @@ public class TestAquarium : MonoBehaviour
 
         if(eatables.Count == 0)
         {
-            Debug.LogError("there are no eatable fish in aquarium");
             return null;
         }
 
         IEatable nearest = eatables.OrderBy(x => Vector3.Distance(x.GameObject.transform.position, position)).First();
         return nearest;
+    }
+
+    public void SpawnFish(FishType type, int amount)
+    {
+        var fishPrefab = fishPrefabs.Find(x => x.FishType == type);
+        
+        for (int i = 0; i < amount; i++)
+        {    
+            var fish = LeanPool.Spawn(fishPrefab, GetRandomPointOnNavMesh(), Quaternion.identity);
+            fishesInAquarium.Add(fish);   
+        }
     }
 
     public Vector3 GetRandomPointOnNavMesh()
@@ -82,9 +96,9 @@ public class TestAquarium : MonoBehaviour
         while (attempts < maxAttempts)
         {
             float randomX = Random.Range(navMeshSurface.transform.position.x - navMeshSurface.size.x / 2, navMeshSurface.transform.position.x + navMeshSurface.size.x / 2);
-            float randomZ = Random.Range(navMeshSurface.transform.position.z - navMeshSurface.size.z / 2, navMeshSurface.transform.position.z + navMeshSurface.size.z / 2);
+            float randomZ = Random.Range(navMeshSurface.transform.position.y - navMeshSurface.size.y / 2, navMeshSurface.transform.position.y + navMeshSurface.size.y / 2);
 
-            randomPoint = new Vector3(randomX, navMeshSurface.transform.position.y, randomZ);
+            randomPoint = new Vector3(randomX, randomZ, navMeshSurface.transform.position.z);
 
             if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
             {
@@ -102,7 +116,7 @@ public class TestAquarium : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            var fish = LeanPool.Spawn(fishPrefab, GetRandomPointOnNavMesh(), Quaternion.identity);
+            var fish = LeanPool.Spawn(fishPrefabs.GetRandom(), GetRandomPointOnNavMesh(), Quaternion.identity);
             fishesInAquarium.Add(fish);
         }
     }

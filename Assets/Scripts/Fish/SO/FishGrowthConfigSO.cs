@@ -9,4 +9,6 @@ public class FishGrowthConfigSO : ScriptableObject
     [field: SerializeField] public float GrowthScaleDuration {get; private set;} = 0.35f;
     [field: SerializeField] public float FullnessDuration {get; private set;} = 5f;
     [field: SerializeField] public bool StopEatingFoodAtMature {get; private set;} = false;
+
+    [field: SerializeField] public float RevenueAmount {get; private set;} = 5f;
 }

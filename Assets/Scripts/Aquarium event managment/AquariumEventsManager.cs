@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 using System.Collections.Generic;
 using Lean.Pool;
@@ -83,7 +84,7 @@ public class AquariumEventsManager : MonoBehaviour
 
             //******************
 
-            //Þerit görünümünü yenile
+            //ï¿½erit gï¿½rï¿½nï¿½mï¿½nï¿½ yenile
             RollTimers();
 
             //******************
@@ -137,10 +138,12 @@ public class AquariumEventsManager : MonoBehaviour
             SeriesOfEvents[earlyloop].EUI.indexed = SeriesOfEvents[earlyloop];
         }
     }
-
+    
+    public static event UnityAction AllEventsCompleted;
 
     void EventsCleared()
     {
+        AllEventsCompleted?.Invoke();
         // end of level
     }
 }

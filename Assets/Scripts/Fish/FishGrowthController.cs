@@ -5,9 +5,9 @@ using UnityEngine.Events;
 public class FishGrowthController : MonoBehaviour
 {
     [SerializeField] protected FishGrowthConfigSO fishGrowthConfigSO;
-
     protected Fish fish;
     private float currentGrowthAmount = 1f;
+    public float CurrentGrowthAmount => currentGrowthAmount;
     protected float lastEatTime;
 
     private float growthAmountPerFood;
@@ -24,6 +24,8 @@ public class FishGrowthController : MonoBehaviour
 
     protected bool isCurrentlyMature = false;
 
+    public int GetRevenueAmount => Mathf.RoundToInt(fishGrowthConfigSO.RevenueAmount * currentGrowthAmount);
+    
     public FishGrowthController Init(Fish fish)
     {
         this.fish = fish;
@@ -56,6 +58,7 @@ public class FishGrowthController : MonoBehaviour
         currentGrowthAmount = 1f;
         transform.localScale = Vector3.one;
         growthAmountPerFood = fishGrowthConfigSO.GrowthAmount;
+        isCurrentlyMature = false;
     }
 
     private void HandleOnDespawned()

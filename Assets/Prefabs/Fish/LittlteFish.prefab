@@ -84,6 +84,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1963bf10940aa74d91cdf84262a4928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <FishType>k__BackingField: 3
+  <FishInfoUI>k__BackingField: {fileID: 11400000, guid: 6b517c54d297df8429cb99849fc95516,
+    type: 2}
 --- !u!114 &3188417607115310119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,6 +199,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3188417606612418578}
     m_Modifications:
+    - target: {fileID: -9102660065938288726, guid: 8f859703c54ee3048ae86dedf1bd9b55,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: -9102660065938288726, guid: 8f859703c54ee3048ae86dedf1bd9b55,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8f859703c54ee3048ae86dedf1bd9b55,
         type: 3}
       propertyPath: m_RootOrder
@@ -251,6 +264,51 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5405219870164611416, guid: 8f859703c54ee3048ae86dedf1bd9b55,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 89.98021
+      objectReference: {fileID: 0}
+    - target: {fileID: -5405219870164611416, guid: 8f859703c54ee3048ae86dedf1bd9b55,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5405219870164611416, guid: 8f859703c54ee3048ae86dedf1bd9b55,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1535496398298565075, guid: 8f859703c54ee3048ae86dedf1bd9b55,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0.000013660378
+      objectReference: {fileID: 0}
+    - target: {fileID: -1535496398298565075, guid: 8f859703c54ee3048ae86dedf1bd9b55,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -85.914375
+      objectReference: {fileID: 0}
+    - target: {fileID: -1535496398298565075, guid: 8f859703c54ee3048ae86dedf1bd9b55,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -1128994895440738462, guid: 8f859703c54ee3048ae86dedf1bd9b55,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -0.00000014350393
+      objectReference: {fileID: 0}
+    - target: {fileID: -1128994895440738462, guid: 8f859703c54ee3048ae86dedf1bd9b55,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -0.000003731094
+      objectReference: {fileID: 0}
+    - target: {fileID: -1128994895440738462, guid: 8f859703c54ee3048ae86dedf1bd9b55,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -2.2026024
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8f859703c54ee3048ae86dedf1bd9b55,
         type: 3}
       propertyPath: m_Name
@@ -264,3 +322,30 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4859530186687722148}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5742631742452404213 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8f859703c54ee3048ae86dedf1bd9b55,
+    type: 3}
+  m_PrefabInstance: {fileID: 4859530186687722148}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6303796451889944158
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5742631742452404213}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 229bae1ee2eeb574fbd53ccf774594f4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -43,6 +43,9 @@ public class MiniWhaleGrowthController : FishGrowthController
     }
     private void OnTriggerEnter(Collider other)
     {
+        if(!HasReachedMature)
+            return;
+        
         if(HasEatenRecently)
             return;
         

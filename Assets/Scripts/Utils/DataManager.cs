@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public static class DataManager
 {
@@ -12,4 +13,16 @@ public static class DataManager
         get => PlayerPrefs.GetFloat("SfxVolume", 1);
         set => PlayerPrefs.SetFloat("SfxVolume", value);
     }
+
+    public static int CurrentMoney
+    {
+        get => PlayerPrefs.GetInt("Money", 10);
+        set 
+        {
+            PlayerPrefs.SetInt("Money", value);
+            CurrencyUpdate?.Invoke();
+        }
+    }
+
+    public static event UnityAction CurrencyUpdate;
 }
