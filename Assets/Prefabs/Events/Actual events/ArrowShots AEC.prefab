@@ -282,7 +282,7 @@ MonoBehaviour:
   - {fileID: 749665805066859975}
   FishLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!1 &749665804816957990
 GameObject:
   m_ObjectHideFlags: 0

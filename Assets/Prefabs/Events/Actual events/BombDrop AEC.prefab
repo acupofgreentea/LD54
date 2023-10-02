@@ -134,7 +134,7 @@ MonoBehaviour:
   BombT: {fileID: 8994022563466297468}
   FishLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!1 &7466921993331350751
 GameObject:
   m_ObjectHideFlags: 0

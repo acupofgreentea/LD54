@@ -130,7 +130,8 @@ public class ArrowShots_AEC : MonoBehaviour, IAquariumEvent
         {
             if (c.collider == null) continue;
 
-            //Lean.Pool.LeanPool.Despawn(c.collider.GetComponent<Fish?>());
+            //Lean.Pool.LeanPool.Despawn(c.collider.GetComponent<Fish>());
+            c.collider.GetComponent<FishHealth>().Die();
         }
     }
 

@@ -65,6 +65,7 @@ public class BombDrop_AEC : MonoBehaviour, IAquariumEvent
                     if (c == null) continue;
 
                     //Lean.Pool.LeanPool.Despawn(c.GetComponent<Fish?>());
+                    c.GetComponent<FishHealth>().Die();
                 }
 
             }

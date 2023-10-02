@@ -9,6 +9,7 @@ public class CatSweep_Claw : MonoBehaviour
         if (other.CompareTag(tag_fish))
         {
             //Lean.Pool.LeanPool.Despawn(other.GetComponent<Fish>());
+            other.GetComponent<FishHealth>().Die();
         }
     }
 }
