@@ -16,7 +16,7 @@ public class PatrolState : StateBase
 
     public override void UpdateState()
     {
-        if(fish.FishMovement.HasReachedTarget())
+        if(fish.FishMovement.HasReachedTarget() || !fish.FishMovement.HasPath)
         {
             SetNewTargetPosition();
         }

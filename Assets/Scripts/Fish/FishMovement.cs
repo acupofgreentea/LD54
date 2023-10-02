@@ -26,6 +26,8 @@ public class FishMovement : MonoBehaviour
     private Coroutine warnCoroutine;
 
     private NavMeshAgent agent;
+
+    public bool HasPath => agent.hasPath;
     public FishMovement Init(Fish fish)
     {
         this.fish = fish;

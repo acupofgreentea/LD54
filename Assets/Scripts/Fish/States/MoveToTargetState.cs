@@ -19,7 +19,7 @@ public class MoveToTargetState : StateBase
 
         fish.FishMovement.MoveToTarget();
 
-        if(fish.FishMovement.HasReachedTarget())
+        if(fish.FishMovement.HasReachedTarget() || !fish.FishMovement.HasPath)
         {
             fish.FishStateController.ChangeState(FishState.Patrol);
         }

@@ -44,13 +44,14 @@ public class PlayerActionHandler : MonoBehaviour
         if(!Physics.Raycast(ray, out var hit))
             return;
 
-        Vector3 worldPosition = hit.point;        
+        Vector3 worldPosition = hit.point;   
+        worldPosition.z = 0f;     
 
         if(Input.GetMouseButtonDown(0))
         {
             OnWarnFishes?.Invoke(worldPosition);
             var splash = LeanPool.Spawn(splashParticle);   
-            splash.transform.position = worldPosition;    
+            splash.transform.position = hit.point;    
             splash.Play();
             LeanPool.Despawn(splash, 1f);
         }
